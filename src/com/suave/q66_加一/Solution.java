@@ -79,7 +79,7 @@ public class Solution {
                 digits[i] = 0;
             } else {
                 digits[i] += 1;
-                break;
+                return digits;
             }
         }
         digits = new int[digits.length + 1];
@@ -88,6 +88,6 @@ public class Solution {
     }
 
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(new Solution().plusOne(new int[]{9, 9, 9})));
+        System.out.println(Arrays.toString(new Solution().plusOne(new int[]{1,2,3})));
     }
 }
