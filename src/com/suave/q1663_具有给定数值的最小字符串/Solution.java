@@ -46,26 +46,26 @@ package com.suave.q1663_具有给定数值的最小字符串;
 public class Solution {
     public String getSmallestString(int n, int k) {
         int i = 0;
-        while ((n - i) + i * 26 < k){
+        while ((n - i) + i * 26 < k) {
             i++;
         }
         // 说明有i - 1个z
-        if (i > 0){
+        if (i > 0) {
             i--;
         }
-        StringBuilder result = new StringBuilder();
+        char[] result = new char[n];
         for (int j = 0; j < i; j++) {
-            result.append('z');
+            result[n - 1 - j] = 'z';
         }
         int letter = k - i * 26 - (n - i - 1);
-        result.append((char) (letter + 'a' - 1));
-        for (int j = 0; j < n - i - 1; j++) {
-            result.append('a');
+        result[n - 1 - i] = (char) (letter + 'a' - 1);
+        for (int j = 1; j < n - i; j++) {
+            result[n - 1 - i - j] = 'a';
         }
-        return result.reverse().toString();
+        return new String(result);
     }
 
     public static void main(String[] args) {
-        System.out.println(new Solution().getSmallestString(3, 3));
+        System.out.println(new Solution().getSmallestString(5, 73));
     }
 }
