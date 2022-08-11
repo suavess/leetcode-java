@@ -61,39 +61,110 @@ import java.util.List;
  */
 public class Solution {
     public String reformat(String s) {
-        List<Character> nums = new ArrayList<>();
-        List<Character> strs = new ArrayList<>();
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) >= 48 && s.charAt(i) <= 57) {
-                // 数字
-                nums.add(s.charAt(i));
-            } else {
-                strs.add(s.charAt(i));
-            }
+//        List<Character> nums = new ArrayList<>();
+//        List<Character> strs = new ArrayList<>();
+//        for (int i = 0; i < s.length(); i++) {
+//            if (s.charAt(i) >= 48 && s.charAt(i) <= 57) {
+//                // 数字
+//                nums.add(s.charAt(i));
+//            } else {
+//                strs.add(s.charAt(i));
+//            }
+//        }
+//        if (nums.size() - strs.size() > 1 || nums.size() - strs.size() < -1) {
+//            return "";
+//        }
+//        StringBuilder result = new StringBuilder();
+//        if (nums.size() > strs.size()) {
+//            for (int i = 0; i < nums.size(); i++) {
+//                result.append(nums.get(i));
+//                if (i < strs.size()) {
+//                    result.append(strs.get(i));
+//                }
+//            }
+//        } else {
+//            for (int i = 0; i < strs.size(); i++) {
+//                result.append(strs.get(i));
+//                if (i < nums.size()) {
+//                    result.append(nums.get(i));
+//                }
+//            }
+//        }
+//        return result.toString();
+        char[] arr = s.toCharArray();
+        String reformat = reformat(arr);
+        if (!reformat.equals("")) {
+            return reformat;
         }
-        if (nums.size() - strs.size() > 1 || nums.size() - strs.size() < -1) {
-            return "";
-        }
-        StringBuilder result = new StringBuilder();
-        if (nums.size() > strs.size()) {
-            for (int i = 0; i < nums.size(); i++) {
-                result.append(nums.get(i));
-                if (i < strs.size()) {
-                    result.append(strs.get(i));
+        if (isNum(arr[0])) {
+            // 第一个为数字,找一个字母替换一下
+            for (int i = 1; i < arr.length; i++) {
+                if (!isNum(arr[i])) {
+                    char tmp = arr[0];
+                    arr[0] = arr[i];
+                    arr[i] = tmp;
                 }
             }
         } else {
-            for (int i = 0; i < strs.size(); i++) {
-                result.append(strs.get(i));
-                if (i < nums.size()) {
-                    result.append(nums.get(i));
+            // 第一个为字母,找一个数字替换一下
+            for (int i = 1; i < arr.length; i++) {
+                if (isNum(arr[i])) {
+                    char tmp = arr[0];
+                    arr[0] = arr[i];
+                    arr[i] = tmp;
                 }
             }
         }
-        return result.toString();
+        return reformat(arr);
+    }
+
+    private boolean isNum(char character) {
+        return character >= '0' && character <= '9';
+    }
+
+    private String reformat(char[] arr){
+        boolean lastIsNum = isNum(arr[0]);
+        for (int i = 1; i < arr.length; i++) {
+            if (lastIsNum) {
+                // 前一个字符是数字
+                if (isNum(arr[i])) {
+                    // 需要找一个字母进行替换
+                    for (int j = i + 1; j < arr.length; j++) {
+                        if (!isNum(arr[j])){
+                            char tmp = arr[j];
+                            arr[j] = arr[i];
+                            arr[i] = tmp;
+                        }
+                    }
+                    if (isNum(arr[i])){
+                        // 替换后还是数字,说明后面没有字母了
+                        return "";
+                    }
+                }
+                lastIsNum = false;
+            } else {
+                // 前一个字符是在字母
+                if (!isNum(arr[i])) {
+                    // 需要找一个数字进行替换
+                    for (int j = i + 1; j < arr.length; j++) {
+                        if (isNum(arr[j])){
+                            char tmp = arr[j];
+                            arr[j] = arr[i];
+                            arr[i] = tmp;
+                        }
+                    }
+                    if (!isNum(arr[i])){
+                        // 替换后还是字母,说明后面没有数字了
+                        return "";
+                    }
+                }
+                lastIsNum = true;
+            }
+        }
+        return new String(arr);
     }
 
     public static void main(String[] args) {
-        System.out.println(new Solution().reformat("covid2019"));
+        System.out.println(new Solution().reformat("2019covid"));
     }
 }
