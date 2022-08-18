@@ -40,6 +40,8 @@ import java.util.Queue;
  * @date 2022/8/17 14:57
  */
 public class Solution {
+    int sum = 0, maxDepth = 0;
+
     public int deepestLeavesSum(TreeNode root) {
         // BFS
 //        Queue<TreeNode> queue = new ArrayDeque<>();
@@ -62,11 +64,22 @@ public class Solution {
 //        return sum;
 
         // DFS
-
+        dfs(root, 0);
+        return sum;
     }
 
     private void dfs(TreeNode node, int level) {
-
+        if (node == null) {
+            return;
+        }
+        if (level > maxDepth) {
+            maxDepth = level;
+            sum = node.val;
+        } else if (level == maxDepth){
+            sum += node.val;
+        }
+        dfs(node.left, level + 1);
+        dfs(node.right, level + 1);
     }
 
     public static void main(String[] args) {
