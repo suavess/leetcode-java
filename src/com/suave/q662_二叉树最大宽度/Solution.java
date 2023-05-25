@@ -50,7 +50,6 @@ package com.suave.q662_二叉树最大宽度;
 // Related Topics 树 深度优先搜索 广度优先搜索 二叉树 👍 482 👎 0
 
 import com.suave.common.TreeNode;
-import com.sun.tools.javac.util.Pair;
 
 import java.util.HashMap;
 import java.util.Map;

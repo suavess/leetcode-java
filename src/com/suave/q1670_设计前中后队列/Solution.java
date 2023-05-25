@@ -1,6 +1,5 @@
 package com.suave.q1670_设计前中后队列;
 
-import com.sun.codemodel.internal.JForEach;
 
 /**
  * @author shunxin.jin

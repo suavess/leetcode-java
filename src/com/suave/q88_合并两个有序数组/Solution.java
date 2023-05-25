@@ -35,8 +35,6 @@ package com.suave.q88_合并两个有序数组;
 // Related Topics 数组 双指针
 // 👍 820 👎 0
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
-
 import java.util.Arrays;
 
 /**

@@ -42,7 +42,6 @@ package com.suave.q2_两数相加;
 // Related Topics 递归 链表 数学 👍 8507 👎 0
 
 import com.suave.common.ListNode;
-import com.sun.org.apache.bcel.internal.generic.IMPDEP1;
 
 /**
  * @author suave
