@@ -71,24 +71,39 @@ public class Solution {
         // 递归 超时..
 //        return findMax(s.toCharArray(), 0, s.length());
         //
-        int res = 0, right = 0;
-        char[] chars = s.toCharArray();
-        for (int i = 0; i < s.length(); i++) {
-            if (i != 0) {
-                // 左指针移动时移除前一位数字
-                set.remove(chars[i - 1]);
+        // int res = 0, right = 0;
+        // char[] chars = s.toCharArray();
+        // for (int i = 0; i < s.length(); i++) {
+        //     if (i != 0) {
+        //         // 左指针移动时移除前一位数字
+        //         set.remove(chars[i - 1]);
+        //     }
+        //     // 移动右指针
+        //     while (right <= s.length() - 1) {
+        //         if (!set.add(chars[right])) {
+        //             break;
+        //         }
+        //         right++;
+        //     }
+        //     res = Math.max(res, right - i);
+        //     if (right == s.length() - 1) {
+        //         break;
+        //     }
+        // }
+        // return res;
+        if (s.isEmpty()) {
+            return 0;
+        }
+        int res = 1;
+        char[] charArray = s.toCharArray();
+        int len = charArray.length;
+        int i = 0, j = 0;
+        while (j++ < len - 1) {
+            int index = s.indexOf(charArray[j], i);
+            if (index != j) {
+                i = index + 1;
             }
-            // 移动右指针
-            while (right <= s.length() - 1) {
-                if (!set.add(chars[right])) {
-                    break;
-                }
-                right++;
-            }
-            res = Math.max(res, right - i);
-            if (right == s.length() - 1) {
-                break;
-            }
+            res = Math.max(res, j - i + 1);
         }
         return res;
     }
